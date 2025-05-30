@@ -1,1 +1,1 @@
-# django-first-app
+# djangotutorial
