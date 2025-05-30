@@ -1,3 +1,3 @@
 dev:
-	docker build -t django-first-app .
-	docker run --rm -it -p 8000:8000 django-first-app
+	docker build -t djangotutorial .
+	docker run --rm -it -v .:/djangotutorial -p 8000:8000 djangotutorial
