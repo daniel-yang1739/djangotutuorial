@@ -4,6 +4,7 @@ from polls.views import details
 from polls.views import results
 from polls.views import vote
 
+app_name = 'polls'
 urlpatterns = [
     path('', index, name='index'),
     path("<int:question_id>/", details, name="details"),

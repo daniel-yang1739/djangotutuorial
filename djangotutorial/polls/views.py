@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from polls.models import Question
 
@@ -13,8 +14,8 @@ def index(request):
 
 
 def details(request, question_id):
-    response = f"You're looking at the details of question {question_id}"
-    return HttpResponse(response)
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/details.html', {'question': question})
 
 
 def results(request, question_id):
