@@ -1,13 +1,13 @@
 from django.urls import path
-from polls.views import index
-from polls.views import detail
-from polls.views import result
+from polls.views import IndexView
+from polls.views import DetailView
+from polls.views import ResultView
 from polls.views import vote
 
 app_name = 'polls'
 urlpatterns = [
-    path('', index, name='index'),
-    path("<int:question_id>/", detail, name="detail"),
-    path("<int:question_id>/result/", result, name="result"),
+    path('', IndexView.as_view(), name='index'),
+    path("<int:pk>/", DetailView.as_view(), name="detail"),
+    path("<int:pk>/result/", ResultView.as_view(), name="result"),
     path("<int:question_id>/vote/", vote, name="vote"),
 ]

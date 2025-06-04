@@ -1,4 +1,5 @@
 from django.db.models import F
+from django.views import generic
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
@@ -7,24 +8,23 @@ from polls.models import Choice
 from polls.models import Question
 
 
-def index(request):
-    template = 'polls/index.html'
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {
-        'latest_question_list': latest_question_list
-    }
-    return render(request, template, context)
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
+
+    def get_queryset(seld):
+        """Return the last five publiched questions."""
+        return Question.objects.order_by('-pub_date')[:5]
 
 
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'polls/detail.html', {'question': question})
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
 
 
-def result(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(
-        request, 'polls/result.html', {'question': question})
+class ResultView(generic.DetailView):
+    model = Question
+    template_name = 'polls/result.html'
 
 
 def vote(request, question_id):
